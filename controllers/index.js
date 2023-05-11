@@ -1,13 +1,16 @@
 const router = require('express').Router();
-// must change for when the file is done, this is the basis of it at least. 
-const apiRoutes = require('./api');
-// const homeRoutes = require('./home-routes.js');
-// const dashboardRoutes = require('./dashboard-routes.js');
-// const movieSearchRoutes = require('./movie-search-routes.js');
 
-router.use('/', homeRoutes);
-router.use('/dashboard', dashboardRoutes);
-router.use('/api', apiRoutes);
-// router.use('/movie-search', movieSearchRoutes);
+// Import route modules
+const apiRoutes = require('./api');
+const userRoutes = require('./user-routes.js');
+const dashboardRoutes = require('./dashboard-routes.js');
+const invenSearchRoutes = require('./inven-search-routes.js');
+
+// Define routes
+router.use('/', homeRoutes); // Handles requests to the root path
+router.use('/dashboard', dashboardRoutes); // Handles requests to the '/dashboard' path
+router.use('/api', apiRoutes); // Handles API requests under the '/api' path
+router.use('/api', apiRoutes); // Handles API requests under the '/api' path (duplicated)
+// Note: The duplicated '/api' route may be a mistake or intentional, please verify its usage
 
 module.exports = router;
