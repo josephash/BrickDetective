@@ -6,7 +6,7 @@ The app follows the Model-View-Controller (MVC) paradigm in its architectural st
 
 ## Table of Contents
 
--[Usage](#usage) -[Contribution](#contribution) -[Questions](#questions) -[Technologies](#technologies-used) -[Homepage](#homepage)
+-[Usage](#usage) -[Contribution](#contribution)-[Technologies](#technologies-used) -[Homepage](#homepage)
 
 ## Usage
 
