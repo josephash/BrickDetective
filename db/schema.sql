@@ -4,6 +4,26 @@ CREATE DATABASE lego_db;
 USE lego_db;
 
 -- LEGO catalog database
+CREATE TABLE themes (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(40),
+    parent_id INT,
+    FOREIGN KEY (parent_id)
+    REFERENCES themes(id)
+    ON DELETE SET NULL
+);
+
+CREATE TABLE sets (
+    set_num VARCHAR(20) NOT NULL PRIMARY KEY,
+    name VARCHAR(256),
+    year INT,
+    theme_id INT,
+    num_parts INT,
+    FOREIGN KEY (theme_id)
+    REFERENCES themes(id)
+    ON DELETE SET NULL
+);
+
 CREATE TABLE inventories (
     id INT NOT NULL PRIMARY KEY,
     version INT,
@@ -11,6 +31,27 @@ CREATE TABLE inventories (
     FOREIGN KEY (set_num)
     REFERENCES sets(set_num)
     ON DELETE SET NULL
+);
+
+CREATE TABLE part_categories (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(200)
+);
+
+CREATE TABLE parts (
+    part_num VARCHAR(20) NOT NULL PRIMARY KEY,
+    name VARCHAR(250),
+    part_cat_id INT,
+    FOREIGN KEY (part_cat_id)
+    REFERENCES part_categories(id)
+    ON DELETE SET NULL
+);
+
+CREATE TABLE colors (
+    id INT NOT NULL PRIMARY KEY,
+    name VARCHAR(200),
+    rgb VARCHAR(6),
+    is_trans BOOLEAN DEFAULT 0
 );
 
 CREATE TABLE inventory_parts (
@@ -30,20 +71,6 @@ CREATE TABLE inventory_parts (
     ON DELETE SET NULL
 );
 
-CREATE TABLE parts (
-    part_num VARCHAR(20) NOT NULL PRIMARY KEY,
-    name VARCHAR(250),
-    part_cat_id INT,
-    FOREIGN KEY (part_cat_id)
-    REFERENCES part_categories(id)
-    ON DELETE SET NULL
-);
-
-CREATE TABLE part_categories (
-    id INT NOT NULL PRIMARY KEY,
-    name VARCHAR(200)
-);
-
 CREATE TABLE part_relationships (
     rel_type VARCHAR(1),
     child_part_num VARCHAR(20),
@@ -54,13 +81,6 @@ CREATE TABLE part_relationships (
     FOREIGN KEY (parent_part_num)
     REFERENCES parts(part_num)
     ON DELETE SET NULL
-);
-
-CREATE TABLE colors (
-    id INT NOT NULL PRIMARY KEY,
-    name VARCHAR(200),
-    rgb VARCHAR(6),
-    is_trans BOOLEAN DEFAULT 0
 );
 
 CREATE TABLE elements (
@@ -75,6 +95,12 @@ CREATE TABLE elements (
     ON DELETE SET NULL
 );
 
+CREATE TABLE minifigs (
+    fig_num VARCHAR(20) NOT NULL PRIMARY KEY,
+    name VARCHAR(256),
+    num_parts INT
+);
+
 CREATE TABLE inventory_minifigs (
     inventory_id INT,
     fig_num VARCHAR(20),
@@ -87,12 +113,6 @@ CREATE TABLE inventory_minifigs (
     ON DELETE SET NULL
 );
 
-CREATE TABLE minifigs (
-    fig_num VARCHAR(20) NOT NULL PRIMARY KEY,
-    name VARCHAR(256),
-    num_parts INT
-);
-
 CREATE TABLE inventory_sets (
     inventory_id INT,
     set_num VARCHAR(20),
@@ -101,27 +121,7 @@ CREATE TABLE inventory_sets (
     REFERENCES inventories(id)
     ON DELETE SET NULL,
     FOREIGN KEY (set_num)
-    REFERENCES inventory_sets(set_num)
-    ON DELETE SET NULL
-);
-
-CREATE TABLE sets (
-    set_num VARCHAR(20) NOT NULL PRIMARY KEY,
-    name VARCHAR(256),
-    year INT,
-    theme_id INT,
-    num_parts INT,
-    FOREIGN KEY (theme_id)
-    REFERENCES themes(id)
-    ON DELETE SET NULL
-);
-
-CREATE TABLE themes (
-    id INT NOT NULL PRIMARY KEY,
-    name VARCHAR(40),
-    parent_id INT,
-    FOREIGN KEY (parent_id)
-    REFERENCES themes(id)
+    REFERENCES sets(set_num)
     ON DELETE SET NULL
 );
 
