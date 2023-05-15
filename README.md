@@ -1,7 +1,5 @@
 ## Purpose
 
-
-
 The app follows the Model-View-Controller (MVC) paradigm in its architectural structure, using Handlebars.js as the templating language, Sequelize as the ORM, and the express-session npm package for authentication.
 
 ## Table of Contents
