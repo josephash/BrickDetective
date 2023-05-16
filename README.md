@@ -27,4 +27,4 @@ The app follows the Model-View-Controller (MVC) paradigm in its architectural st
 
 ## Contribution
 
-- Made by Daniel Crawford, Riley Good, Dallen Hatton and Samuel Joseph
+- Made by Daniel Crawford, Dallen Hatton and Samuel Joseph
