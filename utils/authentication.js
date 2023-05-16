@@ -6,8 +6,8 @@ const users = {
 }
 
 class Session {
-    constructor(username, expiresAt) {
-        this.username = username
+    constructor(userId, expiresAt) {
+        this.userId = userId
         this.expiresAt = expiresAt
     }
 
@@ -17,10 +17,11 @@ class Session {
 }
 
 const sessions = {}
-
-const signinHandler = (req, res) => {
+function placeholderfunction(user){if (user== "test"){return "password"}}
+    const signinHandler = (req, res) => {
     
     const { username, password } = req.body
+    const userId = placeholderfunction (username)
     if (!username) {
         res.status(401).end()
         return
