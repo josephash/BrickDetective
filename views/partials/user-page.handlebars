@@ -1,0 +1,25 @@
+<section class="w-100">
+  <h2 class="text-center display-4">@{{user.username}}'s Inventory</h2>
+  <div class="container">
+    <div class="item-list row">
+      {{#each user.inventory as |item|}}
+        <div class="col-md-4">
+          <div class="item-card">
+            <img src="{{item.image}}" class="img img-responsive" />
+            <div class="item-name">{{item.name}}</div>
+            <div class="item-quantity">{{item.quantity}} available</div>
+            <div class="item-description">
+              <div class="item-description">
+                <div class="row text-center">
+                  <div class="col-xs-4">
+                    <h3><a href="/item/{{item_id}}">See More Details</a></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
