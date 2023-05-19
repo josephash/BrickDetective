@@ -15,16 +15,16 @@ const User_Inventories = require('./User_Inventories');
 
 // Themes
 Themes.hasMany(Sets, {
-	foreignKey: 'id',
+	foreignKey: 'theme_id',
 	onDelete: 'CASCADE',
 });
-Themes.hasMany(Themes, {
-	foreignKey: 'id',
-	onDelete: 'CASCADE',
-});
-Themes.belongsTo(Themes, {
-	foreignKey: 'id'
-});
+// Themes.hasMany(Themes, {
+// 	foreignKey: 'id',
+// 	onDelete: 'CASCADE',
+// });
+// Themes.belongsTo(Themes, {
+// 	foreignKey: 'id'
+// });
 
 // Sets
 Sets.hasOne(Inventory_Sets, {
@@ -36,20 +36,20 @@ Sets.hasMany(Inventories, {
 	onDelete: 'CASCADE'
 });
 Sets.belongsTo(Themes, {
-	foreignKey: 'id'
+	foreignKey: 'theme_id'
 });
 
 // Inventories
 Inventories.hasMany(Inventory_Sets, {
-	foreignKey: 'id',
+	foreignKey: 'inventory_id',
 	onDelete: 'CASCADE'
 });
 Inventories.hasMany(Inventory_Minifigs, {
-	foreignKey: 'id',
+	foreignKey: 'inventory_id',
 	onDelete: 'CASCADE'
 });
 Inventories.hasMany(Inventory_Parts, {
-	foreignKey: 'id',
+	foreignKey: 'inventory_id',
 	onDelete: 'CASCADE'
 });
 Inventories.belongsTo(Sets, {
@@ -58,7 +58,7 @@ Inventories.belongsTo(Sets, {
 
 // Part_Categories
 Part_Categories.hasMany(Parts, {
-	foreignKey: 'id'
+	foreignKey: 'category_id'
 });
 
 // Parts
@@ -75,25 +75,25 @@ Parts.hasMany(Part_Relationships, {
 	onDelete: 'CASCADE'
 });
 Parts.belongsTo(Part_Categories, {
-	foreignKey: 'id'
+	foreignKey: 'category_id'
 });
 
 // Colors
 Colors.hasMany(Inventory_Parts, {
-	foreignKey: 'id',
+	foreignKey: 'color_id',
 	onDelete: 'CASCADE'
 });
 Colors.hasMany(Elements, {
-	foreignKey: 'id',
+	foreignKey: 'color_id',
 	onDelete: 'CASCADE'
 });
 
 // Inventory_Parts
 Inventory_Parts.belongsTo(Inventories, {
-	foreignKey: 'id'
+	foreignKey: 'inventory_id'
 });
 Inventory_Parts.belongsTo(Colors, {
-	foreignKey: 'id'
+	foreignKey: 'color_id'
 });
 Inventory_Parts.belongsTo(Parts, {
 	foreignKey: 'part_num'
@@ -109,7 +109,7 @@ Elements.belongsTo(Parts, {
 	foreignKey: 'part_num'
 });
 Elements.belongsTo(Colors, {
-	foreignKey: 'id'
+	foreignKey: 'color_id'
 });
 
 // Minifigs
@@ -120,7 +120,7 @@ Minifigs.hasMany(Inventory_Minifigs, {
 
 // Inventory_Minifigs
 Inventory_Minifigs.belongsTo(Inventories, {
-	foreignKey: 'id'
+	foreignKey: 'inventory_id'
 });
 Inventory_Minifigs.belongsTo(Minifigs, {
 	foreignKey: 'fig_num'
@@ -128,7 +128,7 @@ Inventory_Minifigs.belongsTo(Minifigs, {
 
 // Inventory_Sets
 Inventory_Sets.belongsTo(Inventories, {
-	foreignKey: 'id'
+	foreignKey: 'inventory_id'
 });
 Inventory_Sets.belongsTo(Sets, {
 	foreignKey: 'set_num'
@@ -136,19 +136,19 @@ Inventory_Sets.belongsTo(Sets, {
 
 // Users
 Users.hasMany(User_Inventories, {
-	foreignKey: 'id',
+	foreignKey: 'user_id',
 	onDelete: 'CASCADE'
 })
 
 // User_Inventories
 User_Inventories.belongsTo(Users, {
-	foreignKey: 'id'
+	foreignKey: 'user_id'
 });
 User_Inventories.belongsTo(Parts, {
 	foreignKey: 'part_num'
 });
 User_Inventories.belongsTo(Colors, {
-	foreignKey: 'id'
+	foreignKey: 'color_id'
 });
 
 module.exports = {
