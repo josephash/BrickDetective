@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Movie, User, Comment } = require("../models");
+const { Movie, User, Comment } = require("../../models");
 const withAuth = require("../utils/auth");
 
 // get all comments for dashboard

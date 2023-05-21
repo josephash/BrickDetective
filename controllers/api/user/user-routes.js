@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Sets, Pieces } = require("../../models");
+const { Users, User_Inventories } = require("../../../models");
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 
