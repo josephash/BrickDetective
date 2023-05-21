@@ -1,11 +1,9 @@
 const router = require('express').Router();
-
-// Import route modules
-const legoRoutes = require('./lego');
-const userRoutes = require('./user');
+const legoRoutes = require('./lego-routes');
+const userRoutes = require('./user-routes');
 
 // Define routes
-router.use('/user', userRoutes);
 router.use('/lego', legoRoutes);
+router.use('/user', userRoutes);
 
 module.exports = router;
