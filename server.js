@@ -22,7 +22,7 @@ const Themes = require('./models/Themes');
 const User_Inventories = require('./models/User_Inventories');
 const Users = require('./models/Users');
 
-const sequelize = require('./config/connection'); 
+const { sequelize } = require('./config/connection'); 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
