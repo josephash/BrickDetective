@@ -6,8 +6,11 @@ const {
 } = require("../../models");
 require("dotenv").config();
 
-router.get("/", (req, res) => {
-	res.render('dashboard');
+router.get("/", async (req, res) => {
+	res.render('dashboard',
+	{
+
+	});
 });
 
 module.exports = router;
