@@ -6,6 +6,7 @@ const {
 } = require("../models");
 require("dotenv").config();
 
+// use as template, switch "/" to be unique
 router.get("/", async (req, res) => {
 	res.render('partials/dashboard',
 	{
