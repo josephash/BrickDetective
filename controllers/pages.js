@@ -7,7 +7,7 @@ const {
 require("dotenv").config();
 
 router.get("/", async (req, res) => {
-	res.render('dashboard',
+	res.render('partials/dashboard',
 	{
 
 	});
