@@ -10,13 +10,7 @@ require("dotenv").config();
 // get all users
 router.get("/", (req, res) => {
   Users.findAll({
-    attributes: { exclude: ["password"] },
-    include: [
-      {
-        model: Users,
-        attributes: ["id", "email", "username"]
-      }
-    ],
+    attributes: { exclude: ["password"] }
   })
     .then((dbUserData) => res.json(dbUserData))
     .catch((err) => {
@@ -110,6 +104,60 @@ router.post("/logout", (req, res) => {
   }
 });
 
+// get all user inventories
+router.get("/inventory", (req, res) => {
+  User_Inventories.findAll({})
+    .then((dbUserData) => res.json(dbUserData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+
+
+// get user inventory
+router.get("/inventory/:id", (req, res) => {
+  User_Inventories.findAll({
+    where: {
+      user_id: req.params.id,
+    },
+  })
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(400).json({ message: "No user inventories with that user ID!" });
+        return;
+      }
+      res.json(dbUserData);
+      return;
+    });
+});
+
+// add user inventory
+router.post("/inventory/:id", (req, res) => {
+  Users.findOne({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(400).json({ message: "No user with that user ID!" });
+        return;
+      }
+      let objlist = [];
+      for (const obj of req.body.parts_list) {
+        objlist.push({
+          user_id: req.params.id,
+          ...obj
+        });
+      }
+      User_Inventories.bulkCreate(objlist);
+      res.json({ message: "Done" })
+      return;
+    });
+});
+
 // update user
 router.put("/:id", (req, res) => {
   Users.update(req.body, {
@@ -152,121 +200,25 @@ router.delete("/:id", (req, res) => {
 });
 
 // get user info
-router.get("/id", (req, res) => {
-  Users.findOne({
-    where: {
-      id: req.body.user_id,
-    },
-    attributes: { exclude: ["password"] },
-    include: [
-      {
-        model: Users,
-        attributes: ["id", "email", "username"]
-      }
-    ],
-  })
-    .then((dbUserData) => {
-      if (!dbUserData) {
-        res.status(400).json({ message: "No user with that user ID!" });
-        return;
-      }
-
-      res.json(dbUserData);
-      return;
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-// get all user inventories
-router.get("/inventory", (req, res) => {
-  User_Inventories.findAll({
-    include: [
-      {
-        model: User_Inventories,
-        attributes: ["user_id", "part_num", "color_id", "quantity"]
-      }
-    ],
-  })
-    .then((dbUserData) => {
-      res.json(dbUserData);
-      return;
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-// get user inventory
-router.get("/inventory/:id", (req, res) => {
-  User_Inventories.findAll({
-    where: {
-      user_id: req.params.id,
-    },
-    include: [
-      {
-        model: User_Inventories,
-        attributes: ["user_id", "part_num", "color_id", "quantity"]
-      }
-    ],
-  })
-    .then((dbUserData) => {
-      if (!dbUserData) {
-        res.status(400).json({ message: "No user with that user ID!" });
-        return;
-      }
-
-      res.json(dbUserData);
-      return;
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-router.get("/inventory/:id", (req, res) => {
-  User_Inventories.findAll({
-    where: {
-      id: req.params.id,
-    },
-  })
-    .then((dbUserData) => {
-      if (!dbUserData) {
-        res.status(400).json({ message: "No user with that user ID!" });
-        return;
-      }
-      User_Inventories.findAll({
-        where: {
-          id: req.params.id,
-        },
-      })
-    });
-});
-
-router.post("/inventory/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   Users.findOne({
     where: {
       id: req.params.id,
     },
+    attributes: { exclude: ["password"] }
   })
     .then((dbUserData) => {
       if (!dbUserData) {
         res.status(400).json({ message: "No user with that user ID!" });
         return;
       }
-      let objlist = [];
-      for (const obj of req.body.parts_list) {
-        objlist.push({
-          user_id: req.params.id,
-          ...obj
-        });
-      }
-      User_Inventories.bulkCreate(objlist);
+
+      res.json(dbUserData);
       return;
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
     });
 });
 
