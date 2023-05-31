@@ -28,11 +28,11 @@ Users.init(
       allowNull: false,
     },
     password: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
       allowNull: false,
-      validate: {
-        len: [8],
-      },
+      // validate: {
+      //   len: [8],
+      // },
     },
   },
   {
